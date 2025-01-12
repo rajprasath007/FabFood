@@ -3,31 +3,33 @@ import java.sql.*;
 
 public class SqlEntry {
     public static void main(String[] args) {
-        String imagePath = "E://Downloads/Dosa-Recipe-Step-By-Step-Instructions-scaled.jpg";  // Replace with the image file path
-        String url = "jdbc:mysql://localhost:3306/fooddelivery"; // Database URL
-        String user = "root";  // Database username
-        String password = "root";  // Database password
+
+        String imagePath = "E://Downloads/hotel.jpg";
+        String url = "jdbc:mysql://localhost:3306/fooddelivery";
+        String user = "root";
+        String password = "root";
 
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            String sql = "update menu image = ? where name = ?";
+            String sql = "UPDATE restaurant SET image = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            	
-            	pstmt.setString(2, "Dosa");
-            	
+
                 File file = new File(imagePath);
-                try (FileInputStream fis = new FileInputStream(file)) {
-                    pstmt.setBinaryStream(1, fis, (int) file.length()); // Set the image as BLOB
+                if (!file.exists()) {
+                    System.err.println("Error: File not found.");
+                    return;
                 }
 
-                // Execute the insert
-                int rowsAffected = pstmt.executeUpdate();
-                System.out.println(rowsAffected + " rows affected.");
-            } catch (IOException e) {
-                e.printStackTrace();
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    pstmt.setBinaryStream(1, fis, file.length());
+
+                    int rowsAffected = pstmt.executeUpdate();
+                    System.out.println(rowsAffected + " rows affected.");
+                } catch (IOException e) {
+                    System.err.println("Error reading the file: " + e.getMessage());
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 }
-

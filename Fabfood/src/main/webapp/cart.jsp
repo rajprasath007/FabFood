@@ -267,7 +267,7 @@
             <form action="ClearCart" method="post" onsubmit="return confirmClearCart();">
                 <button type="submit" style="background-color: #e74c3c;">Clear Cart</button>
             </form>
-            <form action="ProceedToPay" method="post">
+            <form action="payments.jsp" method="post">
                 <button type="submit" class="proceed-button">Proceed to Pay</button>
             </form>
         </div>

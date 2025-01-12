@@ -1,12 +1,12 @@
 package com.food.model.dao.launcher;
 
-import com.food.model.dao.impl.CartItemImpl;
+import com.food.model.dao.impl.CartItemDAOImpl;
 
 public class CartItemLauncher {
 	
 	public static void main(String[] args) {
 		
-		CartItemImpl cartItemImpl = new CartItemImpl();
+		CartItemDAOImpl cartItemImpl = new CartItemDAOImpl();
 		System.out.println((cartItemImpl.fetch(2)));
 		
 	}
