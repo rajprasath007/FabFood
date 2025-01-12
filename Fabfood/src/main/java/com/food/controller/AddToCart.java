@@ -38,8 +38,7 @@ public class AddToCart extends HttpServlet {
 			map.put(cartItem, val);
 		}
 		response.sendRedirect("hotels.jsp");
-		/*PrintWriter writer =  response.getWriter();
-		writer.println("Added to cart " + id + " " + val);*/
+		
 	}
 
 }

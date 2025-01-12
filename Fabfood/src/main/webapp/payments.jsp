@@ -1,4 +1,7 @@
-<%@page %>
+<%@page import="com.food.model.dao.impl.AddressDAOImpl"%>
+<%@page import="com.food.model.dao.model.Address" %>
+<%@page import="com.food.model.dao.pojo.CartItem"%>
+<%@page import="java.util.TreeMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Base64"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -158,20 +161,20 @@
     <!-- Order Container -->
     <div class="order-container">
         <% 
-            Object orderObj = session.getAttribute("orderItems"); 
+            Object orderObj = session.getAttribute("cartItems"); 
             
             @SuppressWarnings("unchecked")
-            Map<OrderItem, Integer> orderItems = (Map<OrderItem, Integer>) orderObj;
+            TreeMap<CartItem,Integer> cartItems = (TreeMap<CartItem,Integer>) orderObj;
 
             float ultimateTotal = 0;
 
-            if (orderItems != null && !orderItems.isEmpty()) {
-                for (OrderItem item : orderItems.keySet()) {
-                    String name = item.getItemName();
-                    String restaurantName = item.getRestaurantName();
-                    float price = item.getPrice();
-                    int quantity = orderItems.get(item);
-                    byte[] imageBytes = item.getImage();
+            if (cartItems != null && !cartItems.isEmpty()) {
+                for (Map.Entry<CartItem,Integer> mapItem : cartItems.entrySet()) {
+                    String name = mapItem.getKey().getItemName();
+                    String restaurantName = mapItem.getKey().getRestaurantName();
+                    float price = mapItem.getKey().getPrice();
+                    int quantity = mapItem.getValue();
+                    byte[] imageBytes = mapItem.getKey().getImage();
 
                     String base64Image = "";
                     if (imageBytes != null) {
@@ -180,6 +183,7 @@
 
                     float itemTotal = price * quantity;
                     ultimateTotal += itemTotal;
+                    
         %>
         <!-- Order Item -->
         <div class="order-item">
@@ -210,7 +214,18 @@
         <div class="form-section">
             <h3>Update Address</h3>
             <form action="UpdateAddress" method="post">
-                <textarea name="address" rows="3" placeholder="Enter your delivery address..." required></textarea>
+            	<%
+            		String addressValue = null; 
+            		if(session.getAttribute("addressId") != null){
+            			int addressId = (Integer) session.getAttribute("addressId");
+                		AddressDAOImpl addressDAOImpl = new AddressDAOImpl();
+                		Address address = addressDAOImpl.fetch(addressId);
+                		if(address != null){
+                			addressValue = address.getDoorNo()+ "," + address.getStreetName() + "," + address.getCity() + "," + address.getState() + " - " + address.getPincode();
+                		}
+                	}
+            	%>
+                <textarea name="address" rows="3" placeholder="Enter your delivery address..." required><%= addressValue != null ? addressValue : "" %></textarea>
                 <h3>Select Payment Mode</h3>
                 <select name="paymentMode" required>
                     <option value="" disabled selected>Select Payment Mode</option>

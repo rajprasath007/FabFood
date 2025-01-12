@@ -253,7 +253,7 @@
                     <input type="number" name="<%= addToCartQuantity %>" id="<%= addToCartQuantity %>" value="1" style="display:none">
                     <button type="submit">Add to Cart</button>
                 </form>
-                <form action="OrderNow" method="post" style="display: inline;">
+                <form action="AddAndPay" method="post" style="display: inline;">
                     <input type="hidden" name="menuId" value="<%= menu.getMenuId() %>">
                     <% 
                      String orderNowQuantity = "orderNowQuantity-"+menu.getMenuId();
