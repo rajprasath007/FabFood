@@ -335,7 +335,7 @@
             <div class="restaurant-info">
                 <h3><%= restaurant.getName() %></h3>
                 <p><%= restaurant.getCuisineType() %></p>
-                <form action="DisplayHotels" method="post">
+                <form action="DisplayMenu" method="post">
                     <input type="hidden" name="restaurantId" value="<%= restaurant.getrId() %>">
                     <button type="submit">View Menu</button>
                 </form>

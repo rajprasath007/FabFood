@@ -17,8 +17,8 @@ import com.food.model.dao.model.Menu;
 import com.food.model.dao.model.Restaurant;
 
 
-@WebServlet("/DisplayHotels")
-public class DisplayHotels extends HttpServlet {
+@WebServlet("/DisplayMenu")
+public class DisplayMenu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
@@ -34,7 +34,7 @@ public class DisplayHotels extends HttpServlet {
 		Restaurant restaurant = resDaoImpl.fetch(rId);
 		HttpSession session = request.getSession();
 		session.setAttribute("currentRestaurant", restaurant);
-		response.sendRedirect("hotels.jsp");
+		response.sendRedirect("menu.jsp");
 		MenuDAOImpl menuDaoImpl = new MenuDAOImpl();
 		List<Menu> menus =  menuDaoImpl.fetchRestaurantMenu(rId);
 		session.setAttribute("menus", menus);
