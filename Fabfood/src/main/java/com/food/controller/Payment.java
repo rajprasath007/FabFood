@@ -12,7 +12,11 @@ public class Payment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		//response.sendRedirect("payments.jsp");
+=======
+		response.sendRedirect("payments.jsp");
+>>>>>>> branch 'master' of https://github.com/rajprasath007/FabFood
 	}
 
 }
