@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.food.model.dao.impl.MenuDAOImpl;
 import com.food.model.dao.impl.RestaurantDAOImpl;
+import com.food.model.dao.model.Menu;
 import com.food.model.dao.model.Restaurant;
 
 @WebServlet("/Index")
@@ -28,9 +30,12 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RestaurantDAOImpl daoImpl = new RestaurantDAOImpl();
-		List<Restaurant> restaurants = daoImpl.fetchAll();
+		RestaurantDAOImpl restaurantDaoImpl = new RestaurantDAOImpl();
+		List<Restaurant> restaurants = restaurantDaoImpl.fetchAll();
 		request.getSession().setAttribute("restaurants", restaurants);
+		MenuDAOImpl menuDaoImpl = new MenuDAOImpl();
+		List<Menu> menus = menuDaoImpl.fetchAll();
+		request.getSession().setAttribute("menus",menus);
 		response.sendRedirect("index.jsp");
 	}
 
