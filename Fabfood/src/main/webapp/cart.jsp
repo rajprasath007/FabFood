@@ -8,7 +8,7 @@
     response.setDateHeader("Expires", 0);
 
     if (request.getSession().getAttribute("uId") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("index.jsp");
     }
 %>
 

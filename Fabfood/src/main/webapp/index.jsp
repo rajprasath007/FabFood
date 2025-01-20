@@ -227,8 +227,8 @@
         <div class="logo">FabFood</div>
         <nav>
             <a href="login.jsp">Home</a>
-            <a href="#">Order Food</a>
-            <a href="#">Cart</a>
+            <a href="login.jsp">Order Food</a>
+            <a href="login.jsp">Cart</a>
         </nav>
     </header>
 

@@ -8,7 +8,7 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
     response.setDateHeader("Expires", 0); // Proxies.
     if(request.getSession().getAttribute("uId") == null){
-    	response.sendRedirect("login.jsp");
+    	response.sendRedirect("index.jsp");
     }
 	UserDAOImpl daoImpl = new UserDAOImpl();
 	int uId = (Integer)session.getAttribute("uId");
