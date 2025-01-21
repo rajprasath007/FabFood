@@ -21,6 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Summary</title>
+    <link rel="icon" type="image/webp" href="fabfood.webp">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -213,7 +214,7 @@
         <!-- Address and Payment Form -->
         <div class="form-section">
             <h3>Update Address</h3>
-            <form action="UpdateAddress" method="post">
+            <form action="Confirmation" method="post">
             	<%
             		String addressValue = null; 
             		if(session.getAttribute("addressId") != null){

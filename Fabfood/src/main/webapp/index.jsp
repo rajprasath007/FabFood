@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-16"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Base64" %>
 <%@ page import="com.food.model.dao.model.Menu" %>
@@ -8,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fab Food - Home</title>
+    <link rel="icon" type="image/webp" href="fabfood.webp">
     <style>
         /* General Page Styles */
         body {
@@ -242,6 +245,7 @@
         <h2 class="section-title">Popular Menu Items</h2>
         <div class="menu-container">
             <% 
+            	@SuppressWarnings("unchecked")
                 List<Menu> menus = (List<Menu>) session.getAttribute("menus");
                 byte val = 0;
                 if (menus != null && !menus.isEmpty()) {

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-16"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.security.Secret"%>
 <%@ page import="com.food.model.dao.pojo.*" %>
 <%@ page import="java.util.List" %>
@@ -21,6 +23,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fab Food Home</title>
+    <link rel="icon" type="image/webp" href="fabfood.webp">
     <style>
         /* General Page Styles */
         body {
@@ -290,6 +293,11 @@
                 <span class="notification-badge"><%= cartMap == null ? 0 : cartMap.size() %></span>
             </a>
 
+            <!-- Order Page Link -->
+            <a href="orders.jsp" class="cart-link">
+                <span>🍽️ Orders</span>
+            </a>
+
             <!-- Profile Section -->
             <div class="profile-section" style="margin-right: 20px;">
                 <a href="profile.jsp" class="profile-link" >
@@ -363,14 +371,12 @@
     	var rect = event.target.getBoundingClientRect();
     
     	tooltip.style.left = rect.left + window.scrollX + 'px';  
-    	tooltip.style.top = rect.top + window.scrollY + rect.height + 5 + 'px';
-    
-    	tooltip.style.display = 'inline-block';
+    	tooltip.style.top = rect.top + window.scrollY + 'px';  
+    	tooltip.style.display = 'block';
 	});
 
 	document.getElementsByClassName('profile-pic')[0].addEventListener('mouseout', function() {
 		document.getElementById('hov').style.display = 'none';
 	});
-
 </script>
 </html>

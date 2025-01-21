@@ -15,17 +15,9 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 		
 		private Connection con;
 		private PreparedStatement prepStmt;
-		private final String INSERT_QUERY = "insert into orderHistory(oId,uId,rId,total,status) values(?,?,?,?,?)";
-		private final String FETCH_ALL_QUERY = "select * from `orderHistory`";
-		private final String FETCH_QUERY = "select * from `orderHistory` where oHId = ?";
-		private final String UPDATE_QUERY = "update `orderHistory` set status = ? where oHId = ?";
-		private final String DELETE_QUERY = "delete from `orderHistory` where oHId = ?";
-		private final String LAST_ID_QUERY = "select max(addressId) from address";
+		private final String FETCH_ALL_QUERY = "SELECT r.name rname,m.name mname,m.price,o.quantity,oi.itemTotal,o.status,o.orderdate FROM orderItems oi JOIN orders o ON oi.orderId = o.orderId JOIN menu m ON oi.menuId = m.menuId JOIN restaurant r ON m.rId = r.rId WHERE o.uId = ?;";
 		private List<OrderHistory> ordersHistoryDetails = new ArrayList<OrderHistory>();
-		private int status;
-		private OrderHistory orderHistory;
 		private ResultSet resultSet;
-		private int key;
 
 		public OrderHistoryDAOImpl() {
 			super();
@@ -39,26 +31,10 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 		}
 
 		@Override
-		public int insert(OrderHistory orderHistory) {
-			try {
-				prepStmt = con.prepareStatement(INSERT_QUERY);
-				prepStmt.setInt(1, orderHistory.getoId());
-				prepStmt.setInt(2, orderHistory.getuId());
-				prepStmt.setInt(3, orderHistory.getrId());
-				prepStmt.setInt(4, orderHistory.getTotal());
-				prepStmt.setString(5, orderHistory.getStatus());
-				status = prepStmt.executeUpdate();
-			} 
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return status;
-		}
-
-		@Override
-		public List<OrderHistory> fetchAll() {
+		public List<OrderHistory> fetchAll(int userId) {
 			try {
 				prepStmt =  con.prepareStatement(FETCH_ALL_QUERY);
+				prepStmt.setInt(1, userId);
 				resultSet = prepStmt.executeQuery();
 				ordersHistoryDetails = extractDetailsFromResultSet(resultSet);
 				
@@ -69,52 +45,10 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 			return ordersHistoryDetails;
 		}
 
-
-		@Override
-		public OrderHistory fetch(int orderHistoryId) {
-			try {
-				prepStmt = con.prepareStatement(FETCH_QUERY);
-				prepStmt.setInt(1, orderHistoryId);
-				resultSet = prepStmt.executeQuery();
-				orderHistory = extractDetailsFromResultSet(resultSet).get(0);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return orderHistory;
-		}
-
-		@Override
-		public int update(int orderHistoryId, OrderHistory orderHistory) {
-			try {
-				prepStmt = con.prepareStatement(UPDATE_QUERY);
-				prepStmt.setString(1, orderHistory.getStatus());
-				prepStmt.setInt(2, orderHistoryId);
-				status = prepStmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return status;
-		}
-
-		@Override
-		public int delete(int orderHistoryId) {
-			try {
-				prepStmt = con.prepareStatement(DELETE_QUERY);
-				prepStmt.setInt(1, orderHistoryId);
-				status = prepStmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return status;
-		}
-
 		private List<OrderHistory> extractDetailsFromResultSet(ResultSet resultSet) {
 			try {
 				while(resultSet.next()) {
-					OrderHistory orderHistory = new OrderHistory(resultSet.getInt("oHId"),resultSet.getInt("oId"),resultSet.getInt("total"),resultSet.getString("status"),resultSet.getInt("rId"),resultSet.getInt("uId"));
+					OrderHistory orderHistory = new OrderHistory(resultSet.getString("rname"),resultSet.getString("mname"),resultSet.getInt("price") ,resultSet.getInt("quantity"),resultSet.getInt("itemTotal"),resultSet.getString("status"),resultSet.getString("orderdate"));
 					ordersHistoryDetails.add(orderHistory);
 				}
 			} catch (SQLException e) {

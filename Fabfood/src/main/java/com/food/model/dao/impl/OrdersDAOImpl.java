@@ -15,18 +15,18 @@ public class OrdersDAOImpl implements OrderDAO{
 	
 	private Connection con;
 	private PreparedStatement prepStmt;
-	private final String INSERT_QUERY = "insert into orders(uId,rId,menuId,quantity,total,payment,status) values(?,?,?,?,?,?,?)";
+	private final String INSERT_QUERY = "insert into orders(uId,quantity,total,payment,status) values(?,?,?,?,?)";
 	private final String FETCH_ALL_QUERY = "select * from `orders`";
 	private final String FETCH_QUERY = "select * from `orders` where orderId = ?";
 	private final String UPDATE_QUERY = "update `orders` set status = ? where orderId = ?";
 	private final String DELETE_QUERY = "delete from `orders` where orderId = ?";
-	private final String LAST_ID_QUERY = "select max(addressId) from address";
+	private final String LAST_ID_QUERY = "select max(orderId) from orders";
 	private List<Order> ordersDetails = new ArrayList<Order>();
 	private int status;
 	private Order order;
 	private ResultSet resultSet;
 	private int key;
-
+	
 	public OrdersDAOImpl() {
 		super();
 		try {
@@ -37,18 +37,28 @@ public class OrdersDAOImpl implements OrderDAO{
 			e.printStackTrace();
 		}
 	}
+	
+	public int getRencentKey() {
+		try {
+			prepStmt = con.prepareStatement(LAST_ID_QUERY);
+			resultSet = prepStmt.executeQuery();
+			resultSet.next();
+			key = resultSet.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return key;
+	}
 
 	@Override
 	public int insert(Order order) {
 		try {
 			prepStmt = con.prepareStatement(INSERT_QUERY);
 			prepStmt.setInt(1, order.getUserId());
-			prepStmt.setInt(2, order.getRestaurantId());
-			prepStmt.setInt(3, order.getMenuId());
-			prepStmt.setInt(4, order.getQuantity());
-			prepStmt.setInt(5, order.getTotal());
-			prepStmt.setString(6, order.getPaymentMode());
-			prepStmt.setString(7, order.getStatus());
+			prepStmt.setInt(2, order.getQuantity());
+			prepStmt.setInt(3, order.getTotal());
+			prepStmt.setString(4, order.getPaymentMode());
+			prepStmt.setString(5, order.getStatus());
 			status = prepStmt.executeUpdate();
 		} 
 		catch (SQLException e) {
@@ -61,6 +71,20 @@ public class OrdersDAOImpl implements OrderDAO{
 	public List<Order> fetchAll() {
 		try {
 			prepStmt =  con.prepareStatement(FETCH_ALL_QUERY);
+			resultSet = prepStmt.executeQuery();
+			ordersDetails = extractDetailsFromResultSet(resultSet);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ordersDetails;
+	}
+	
+	public List<Order> fetchAll(int userId) {
+		try {
+			prepStmt =  con.prepareStatement("select * from orders where uId = ?");
+			prepStmt.setInt(1, userId);I
 			resultSet = prepStmt.executeQuery();
 			ordersDetails = extractDetailsFromResultSet(resultSet);
 			
@@ -116,7 +140,7 @@ public class OrdersDAOImpl implements OrderDAO{
 	private List<Order> extractDetailsFromResultSet(ResultSet resultSet) {
 		try {
 			while(resultSet.next()) {
-				Order order = new Order(resultSet.getInt("orderId"),resultSet.getInt("uId"),resultSet.getInt("rId"),resultSet.getInt("menuId"),resultSet.getInt("quantity"),resultSet.getInt("total"),resultSet.getString("payment"),resultSet.getString("status"));
+				Order order = new Order(resultSet.getInt("orderId"),resultSet.getInt("uId"),resultSet.getInt("quantity"),resultSet.getInt("total"),resultSet.getString("orderDate"), resultSet.getString("payment"),resultSet.getString("status"));
 				ordersDetails.add(order);
 			}
 		} catch (SQLException e) {

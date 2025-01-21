@@ -1,7 +1,7 @@
 package com.food.model.dao.model;
 
 public class OrderItem {
-	
+	public static final int DEFAULT_ID = 0;
 	private int orderItemId;
 	private int orderId;
 	private int menuId;
@@ -64,7 +64,7 @@ public class OrderItem {
 
 	@Override
 	public String toString() {
-		return  orderItemId + " " + orderId + " " + menuId + " " + quantity + ", itemTotal=" + itemTotal ;
+		return  "[ " + orderItemId + " " + orderId + " " + menuId + " " + quantity + " " + itemTotal + " ]";
 	}
 	
 	

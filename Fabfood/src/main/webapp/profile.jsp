@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.security.*" %>
 <%@ page import="com.food.model.dao.model.User" %>
 <%@ page import="com.food.model.dao.model.Address" %>
@@ -39,6 +41,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <link rel="icon" type="image/webp" href="fabfood.webp">
     <style>
         /* General Styles */
         body {

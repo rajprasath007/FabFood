@@ -2,28 +2,38 @@ package com.food.model.dao.model;
 
 public class Order {
 	
+	public static final int DEFAULT_ID = 0; 
 	private int orderId;
 	private int userId;
-	private int restaurantId;
-	private int menuId;
 	private int quantity;
 	private int total;
+	private String orderDate;
 	private String paymentMode;
 	private String status;
 	
-	public Order(int orderId, int userId, int restaurantId, int menuId, int quantity, int total, String paymentMode,
+	public Order(int orderId, int userId, int quantity, int total, String paymentMode,
 			String status) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
-		this.restaurantId = restaurantId;
-		this.menuId = menuId;
 		this.quantity = quantity;
 		this.total = total;
 		this.paymentMode = paymentMode;
 		this.status = status;
 	}
 
+	public Order(int orderId, int userId, int quantity, int total,String orderDate, String paymentMode,
+			String status) {
+		super();
+		this.orderId = orderId;
+		this.userId = userId;
+		this.quantity = quantity;
+		this.total = total;
+		this.orderDate = orderDate;
+		this.paymentMode = paymentMode;
+		this.status = status;
+	}
+	
 	public Order() {
 		
 	}
@@ -42,22 +52,6 @@ public class Order {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public int getRestaurantId() {
-		return restaurantId;
-	}
-
-	public void setRestaurantId(int restaurantId) {
-		this.restaurantId = restaurantId;
-	}
-
-	public int getMenuId() {
-		return menuId;
-	}
-
-	public void setMenuId(int menuId) {
-		this.menuId = menuId;
 	}
 
 	public int getQuantity() {
@@ -92,11 +86,20 @@ public class Order {
 		this.status = status;
 	}
 
+	public String getOrderDate() {
+		return orderDate;
+	}
+	
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	
 	@Override
 	public String toString() {
 		
-		return orderId + " " + userId + " " + restaurantId + " "+ menuId + " " + quantity + " " + total + " " + paymentMode + " " + status;
+		return orderId + " " + userId + " " + quantity + " " + total + " " + paymentMode + " " + status;
 	}
+
 	
 	
 }

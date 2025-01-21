@@ -1,81 +1,85 @@
 package com.food.model.dao.model;
 
 public class OrderHistory {
+    private String restaurantName;
+    private String itemName;
+    private int price;
+    private int quantity;
+    private int itemTotal;
+    private String status;
+    private String orderDate;
 
-	private int oHId;
-	private int oId;
-	private int total;
-	private String status;
-	private int rId;
-	private int uId;
-	
-	public OrderHistory(int oHId, int oId, int total, String status, int rId, int uId) {
-		super();
-		this.oHId = oHId;
-		this.oId = oId;
-		this.total = total;
-		this.status = status;
-		this.rId = rId;
-		this.uId = uId;
-	}
+    public OrderHistory(String restaurantName, String itemName,int price, int quantity,int itemTotal, String status,String orderDate) {
+        this.restaurantName = restaurantName;
+        this.itemName = itemName;
+        this.price = price;
+        this.quantity = quantity;
+        this.itemTotal = itemTotal;
+        this.status = status;
+        this.orderDate = orderDate;
+    }
 
-	public OrderHistory() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public String getRestaurantName() {
+        return restaurantName;
+    }
 
-	public int getoHId() {
-		return oHId;
-	}
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
 
-	public void setoHId(int oHId) {
-		this.oHId = oHId;
-	}
+    public String getItemName() {
+        return itemName;
+    }
 
-	public int getoId() {
-		return oId;
-	}
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
-	public void setoId(int oId) {
-		this.oId = oId;
-	}
+    public int getItemTotal() {
+        return itemTotal;
+    }
 
-	public int getTotal() {
-		return total;
-	}
+    public void setItemTotal(int itemTotal) {
+        this.itemTotal = itemTotal;
+    }
 
-	public void setTotal(int total) {
-		this.total = total;
-	}
+    public String getStatus() {
+    	return status;
+    }
+    
+    public void setStatus(String status) {
+    	this.status = status;
+    }
+    
+    public String getOrderDate() {
+        return orderDate;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public int getQuantity() {
+    	return quantity;
+    }
+    
+    public void setQuantity(int quantity) {
+    	this.quantity = quantity;
+    }
+    
+    public int getPrice() {
+    	return price;
+    }
+    
+    public void setPrice(int price) {
+    	this.price = price;
+    }
+    
+    @Override
+    public String toString() {
+        return "[ " + " " + restaurantName +" " + itemName + " " + price +" " + quantity +" "+ itemTotal +" " + status +" "+ orderDate +" ]";
+    }
 
-	public int getrId() {
-		return rId;
-	}
 
-	public void setrId(int rId) {
-		this.rId = rId;
-	}
 
-	public int getuId() {
-		return uId;
-	}
-
-	public void setuId(int uId) {
-		this.uId = uId;
-	}
-
-	@Override
-	public String toString() {
-		return oHId + " " + oId + " " + total + " " + status + " "+ rId + " " + uId;
-	}
-	
-	
 }

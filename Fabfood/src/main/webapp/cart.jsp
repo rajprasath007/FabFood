@@ -18,6 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title style="align">Shopping Cart</title>
+    <link rel="icon" type="image/webp" href="fabfood.webp">
     <style>
         body {
             font-family: Arial, sans-serif;

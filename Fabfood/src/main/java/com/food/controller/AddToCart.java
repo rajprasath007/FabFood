@@ -37,7 +37,7 @@ public class AddToCart extends HttpServlet {
 			TreeMap<CartItem,Integer> map = (TreeMap<CartItem,Integer>)(cartItems);
 			map.put(cartItem, val);
 		}
-		response.sendRedirect("hotels.jsp");
+		response.sendRedirect("cart.jsp");
 		
 	}
 
