@@ -41,7 +41,6 @@ public class Confirmation extends HttpServlet {
 		order = new Order(Order.DEFAULT_ID, (int) session.getAttribute("uId"), qunatity, total, paymentType, "Ordered");
 		ordersDaoImpl.insert(order);
 		orderId = ordersDaoImpl.getRencentKey();
-		System.out.println(orderId);
 		for(CartItem map : cartItems.keySet()) {
 			int menuId = map.getMenuID();
 			int quantity = cartItems.get(map);

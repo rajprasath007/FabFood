@@ -61,7 +61,7 @@ public class UpdateProfile extends HttpServlet {
 				addressId = addressDAOImpl.getKey();
 				User user = new User(uId,name,email,mobileNumber,addressId);
 				userDAOImpl.updateAll(uId, user);
-				
+				session.setAttribute("addressId", addressId);
 			}
 		}
 		else {
