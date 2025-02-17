@@ -174,20 +174,6 @@
             font-size: 0.85em;
         }
     </style>
-    <script>
-        function updateQuantity(inputId, increment) {
-            const quantityInput = document.getElementById(inputId);
-            let value = parseInt(quantityInput.value) || 1;
-            value += increment;
-            if (value < 1) value = 1; // Ensure quantity is at least 1
-            quantityInput.value = value;
-
-            // Update the hidden fields with the real-time quantity
-            const menuId = inputId.split('-')[1];
-            document.getElementById('addToCartQuantity-' + menuId).value = value;
-            document.getElementById('orderNowQuantity-' + menuId).value = value;
-        }
-    </script>
 </head>
 <body>
     <!-- Header -->
@@ -246,7 +232,7 @@
                     <input type="text" id="<%= quantity %>" value="1" readonly style="width: 40px; text-align: center;">
                     <button type="button" onclick="updateQuantity('<%= quantity %>', 1)">+</button>
                 </div>
-                <form action="AddToCart" method="post" style="display: inline;">
+                <form id="addToCartForm" action="AddToCart" method="post" style="display: inline;">
                     <input type="hidden" name="menuId" value="<%= menu.getMenuId() %>">
                     <% 
                      String addToCartQuantity = "addToCartQuantity-"+menu.getMenuId();
@@ -279,4 +265,34 @@
         &copy; 2024 Foodies. All Rights Reserved.
     </footer>
 </body>
+<script>
+		
+		let form = document.getElementById('addToCartForm');
+		form.addEventListener("submit",event => {
+			event.preventDefault();
+			let formData = new FormData(form);
+			fetch("AddToCart",{
+				method : "POST",
+				body : new URLSearchParams(formData)
+			}).then(res => res.json()).then(data => {
+				alert("Added to cart")
+				let cartSize = document.getElementsByClassName('notification-badge')[0];
+				cartSize.textContent = data.cartSize;
+			});
+		})
+		
+		
+        function updateQuantity(inputId, increment) {
+            const quantityInput = document.getElementById(inputId);
+            let value = parseInt(quantityInput.value) || 1;
+            value += increment;
+            if (value < 1) value = 1; // Ensure quantity is at least 1
+            quantityInput.value = value;
+
+            // Update the hidden fields with the real-time quantity
+            const menuId = inputId.split('-')[1];
+            document.getElementById('addToCartQuantity-' + menuId).value = value;
+            document.getElementById('orderNowQuantity-' + menuId).value = value;
+        }
+    </script>
 </html>

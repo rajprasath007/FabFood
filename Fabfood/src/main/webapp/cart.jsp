@@ -161,47 +161,13 @@
             background-color: #388e3c;
         }
     </style>
-    <script>
-        function updateQuantity(cartItemId, increment) {
-            const quantityInput = document.getElementById('quantity-' + cartItemId);
-            const priceElement = document.getElementById('price-' + cartItemId);
-            const totalElement = document.getElementById('total-' + cartItemId);
-
-            let quantity = parseInt(quantityInput.value) || 1;
-            quantity += increment;
-            if (quantity < 1) quantity = 1; // Minimum quantity is 1
-            quantityInput.value = quantity;
-
-            // Update item total
-            const price = parseFloat(priceElement.textContent);
-            const itemTotal = price * quantity;
-            totalElement.textContent = itemTotal.toFixed(2);
-
-            // Update ultimate total
-            updateUltimateTotal();
-        }
-
-        function updateUltimateTotal() {
-            let ultimateTotal = 0;
-            const itemTotals = document.querySelectorAll('[id^="total-"]');
-            itemTotals.forEach(item => {
-                ultimateTotal += parseFloat(item.textContent);
-            });
-
-            document.getElementById('ultimate-total').textContent = ultimateTotal.toFixed(2);
-        }
-
-        function confirmClearCart() {
-            return confirm('Are you sure you want to clear the cart? This action cannot be undone.');
-        }
-    </script>
 </head>
 <body>
     <!-- Header -->
     <header>
-    <a href="javascript:history.back();">Back</a> <!-- The "Back" button stays left -->
-    <div class="cart-title">Shopping Cart</div> <!-- This will be centered -->
-</header>
+    	<a href="javascript:history.back();">Back</a> <!-- The "Back" button stays left -->
+    	<div class="cart-title">Shopping Cart</div> <!-- This will be centered -->
+	</header>
 
 
     <!-- Cart Container -->
@@ -274,4 +240,55 @@
         </div>
     </div>
 </body>
+  <script>
+        function updateQuantity(cartItemId, increment) {
+            const quantityInput = document.getElementById('quantity-' + cartItemId);
+            const priceElement = document.getElementById('price-' + cartItemId);
+            const totalElement = document.getElementById('total-' + cartItemId);
+            
+            let params = new URLSearchParams();
+            params.append("menuId",cartItemId);
+            params.append("updateQuantity",increment);
+            
+            console.log(params.toString());
+            
+            fetch("UpdateCart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params
+            }).then(response => response.text())
+              .then(data => {
+                  console.log(data);
+              });
+
+            let quantity = parseInt(quantityInput.value) || 1;
+            quantity += increment;
+            if (quantity < 1) quantity = 1; // Minimum quantity is 1
+            quantityInput.value = quantity;
+
+            // Update item total
+            const price = parseFloat(priceElement.textContent);
+            const itemTotal = price * quantity;
+            totalElement.textContent = itemTotal.toFixed(2);
+
+            // Update ultimate total
+            updateUltimateTotal();
+        }
+
+        function updateUltimateTotal() {
+            let ultimateTotal = 0;
+            const itemTotals = document.querySelectorAll('[id^="total-"]');
+            itemTotals.forEach(item => {
+                ultimateTotal += parseFloat(item.textContent);
+            });
+
+            document.getElementById('ultimate-total').textContent = ultimateTotal.toFixed(2);
+        }
+
+        function confirmClearCart() {
+            return confirm('Are you sure you want to clear the cart? This action cannot be undone.');
+        }
+    </script>
 </html>

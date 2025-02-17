@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.food.model.dao.impl.CartItemDAOImpl;
 import com.food.model.dao.pojo.CartItem;
 
@@ -19,7 +21,10 @@ import com.food.model.dao.pojo.CartItem;
 public class AddToCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		int id = Integer.parseInt(request.getParameter("menuId"));
 		String valId = "addToCartQuantity-"+id;
 		int val = Integer.parseInt(request.getParameter(valId));
@@ -37,7 +42,15 @@ public class AddToCart extends HttpServlet {
 			TreeMap<CartItem,Integer> map = (TreeMap<CartItem,Integer>)(cartItems);
 			map.put(cartItem, val);
 		}
-		response.sendRedirect("cart.jsp");
+		
+		JSONObject jsonObject = new JSONObject();
+		
+		TreeMap<CartItem, Integer> map = (TreeMap<CartItem,Integer>)(session.getAttribute("cartItems"));
+		jsonObject.put("message", "success");
+		jsonObject.put("cartSize", map.size());
+		
+		response.setContentType("application/json");
+		response.getWriter().write(jsonObject.toString());
 		
 	}
 
