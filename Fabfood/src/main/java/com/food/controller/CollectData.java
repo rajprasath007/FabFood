@@ -15,6 +15,8 @@ import com.security.Secret;
 @WebServlet("/register")
 public class CollectData extends HttpServlet{
 	
+	private static final long serialVersionUID = -2068567722846228516L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userName = Secret.encrypt(req.getParameter("name"));

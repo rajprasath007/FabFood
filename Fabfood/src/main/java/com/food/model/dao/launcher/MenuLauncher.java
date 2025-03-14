@@ -9,8 +9,9 @@ public class MenuLauncher {
 	public static void main(String[] args) {
 		
 		MenuDAOImpl daoImpl = new MenuDAOImpl();
-		//Menu menu = new Menu(2,"menu","something",100.0f,4.0f,true,null);
-		//daoImpl.insert(menu);
+		
+		Menu menu = new Menu();
+		daoImpl.insert(menu);
 		
 		
 	}

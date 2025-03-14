@@ -20,12 +20,10 @@ public class OrderItemDAOImpl implements OrderItemDAO{
 	private final String FETCH_QUERY = "select * from `orderItems` where orderItemId = ?";
 	private final String UPDATE_QUERY = "update `orderItems` set total = ? where orderItemId = ?";
 	private final String DELETE_QUERY = "delete from `orderItems` where orderItemId = ?";
-	private final String LAST_ID_QUERY = "select max(orderItemId) from orderItems";
 	private List<OrderItem> orderItemDetails = new ArrayList<OrderItem>();
 	private int status;
 	private OrderItem orderItem;
 	private ResultSet resultSet;
-	private int key;
 
 	public OrderItemDAOImpl() {
 		super();

@@ -266,20 +266,22 @@
     </footer>
 </body>
 <script>
-		
 		let form = document.getElementById('addToCartForm');
-		form.addEventListener("submit",event => {
-			event.preventDefault();
-			let formData = new FormData(form);
-			fetch("AddToCart",{
-				method : "POST",
-				body : new URLSearchParams(formData)
-			}).then(res => res.json()).then(data => {
-				alert("Added to cart")
-				let cartSize = document.getElementsByClassName('notification-badge')[0];
-				cartSize.textContent = data.cartSize;
-			});
-		})
+		let forms = document.querySelectorAll('form[id^="addToCartForm"]'); 
+		forms.forEach(form => {
+		    form.addEventListener("submit", event => {
+		        event.preventDefault();
+		        let formData = new FormData(form);
+		        fetch("AddToCart", {
+		            method: "POST",
+		            body: new URLSearchParams(formData)
+		        }).then(res => res.json()).then(data => {
+		            alert("Added to cart");
+		            let cartSize = document.getElementsByClassName('notification-badge')[0];
+		            cartSize.textContent = data.cartSize;
+		        });
+		    });
+		});
 		
 		
         function updateQuantity(inputId, increment) {

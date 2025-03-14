@@ -59,6 +59,7 @@
 
         /* Search Bar */
         .search-bar-container {
+        	position: relative;
             display: flex;
             justify-content: center;
             padding: 20px 0;
@@ -223,6 +224,58 @@
         footer a:hover {
             text-decoration: underline;
         }
+        
+        /* Main search result container */
+        .res {
+        	display: none;
+    		position: relative;
+    		width: 50%;
+    		left: 47%;
+    		top: 100%;
+    		transform: translateX(-50%);
+    		padding: 12px;
+    		border-radius: 10px;
+    		background-color: #f7f3e9;
+    		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    		z-index: 10;
+    		align-items: center;
+    		gap: 15px;
+    	}
+        
+
+        /* Image styling */
+        .res img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #ff6f00; /* Accent color */
+            flex-shrink: 0; /* Prevents image from shrinking */
+        }
+
+        /* Text container */
+        .res-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Ensures vertical alignment */
+            gap: 5px;
+        }
+
+        /* Restaurant name styling */
+        .res-text p:first-child {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Description styling */
+        .res-text p:last-child {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+        
     </style>
 </head>
 <body>
@@ -231,7 +284,7 @@
         <nav>
             <a href="login.jsp">Home</a>
             <a href="login.jsp">Order Food</a>
-            <a href="login.jsp">Cart</a>
+            <a href="login.jsp">Login</a>
         </nav>
     </header>
 
@@ -239,6 +292,22 @@
         <input type="text" class="search-bar" placeholder="Search for food or restaurants..." id="search-input">
         <button class="search-btn" onclick="searchFood()">Search</button>
     </div>
+    
+    <%
+    	for(int i = 0; i < 3 ; i++){
+    %>
+    
+    <div class="res">
+        <img src="https://via.placeholder.com/80" alt="Restaurant Image">
+        <div class="res-text">
+            <p>Restaurant Name</p>
+            <p>A short description of the restaurant and menu.</p>
+        </div>
+    </div>
+    
+    <%
+    	}
+    %>
 
     <!-- Menu Items Section -->
     <div class="section">
@@ -307,10 +376,45 @@
     <footer>&copy; 2025 FabFood. All rights reserved.</footer>
 
     <script>
+        
+        function positionSearchResults() {
+            const searchResults = document.querySelectorAll('.res');
+            let topOffset = 0; // Initialize the top offset
+
+            searchResults.forEach((result, index) => {
+                // Set the top position for the current element
+                result.style.top = `${topOffset}px`;
+
+                // Update the top offset for the next element
+                topOffset += result.offsetHeight + 30; // Add 20px for spacing
+            });
+        }
+
         function searchFood() {
             const searchTerm = document.getElementById("search-input").value;
-            alert("Searching for: " + searchTerm);
+            const searchResults = document.querySelectorAll('.res');
+
+            if (searchTerm.trim() !== "  ") {
+                // Show the elements
+                searchResults.forEach(result => {
+                    result.style.display = 'flex';
+                });
+
+                // Position the elements
+                positionSearchResults();
+            } else {
+                // Hide the elements
+                searchResults.forEach(result => {
+                    result.style.display = 'none';
+                });
+            }
         }
+
+        // Call the positioning function on window resize
+        window.addEventListener('resize', positionSearchResults);
+        
+        window.addEventListener('load', positionSearchResults);
+        
     </script>
 </body>
 </html>

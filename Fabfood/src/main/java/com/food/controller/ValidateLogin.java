@@ -20,6 +20,8 @@ import com.security.Secret;
 @WebServlet("/ValidateLogin")
 public class ValidateLogin extends HttpServlet {
 	
+	private static final long serialVersionUID = -7237669834661620733L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		User user = null;

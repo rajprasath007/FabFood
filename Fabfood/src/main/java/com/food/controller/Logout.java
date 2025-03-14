@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Logout extends HttpServlet {
 	
 	
+	private static final long serialVersionUID = -4400611276316521929L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 			request.getSession().setAttribute("uId",null);

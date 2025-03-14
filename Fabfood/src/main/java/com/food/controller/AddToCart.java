@@ -1,7 +1,6 @@
 package com.food.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.TreeMap;
 
 import javax.servlet.ServletException;
@@ -38,7 +37,6 @@ public class AddToCart extends HttpServlet {
 			session.setAttribute("cartItems",cartItemsNew);
 		}
 		else {
-			@SuppressWarnings("unchecked")
 			TreeMap<CartItem,Integer> map = (TreeMap<CartItem,Integer>)(cartItems);
 			map.put(cartItem, val);
 		}

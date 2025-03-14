@@ -25,7 +25,6 @@ public class AddressDAOImpl implements AddressDAO{
 	private List<Address> addressDetails = new ArrayList<Address>();
 	private int status;
 	private Address address;
-	private ResultSet keySet;
 	private int key;
 	
 	public int getKey() {
