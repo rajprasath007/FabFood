@@ -84,7 +84,7 @@ public class OrdersDAOImpl implements OrderDAO{
 	public List<Order> fetchAll(int userId) {
 		try {
 			prepStmt =  con.prepareStatement("select * from orders where uId = ?");
-			prepStmt.setInt(1, userId);I
+			prepStmt.setInt(1, userId);
 			resultSet = prepStmt.executeQuery();
 			ordersDetails = extractDetailsFromResultSet(resultSet);
 			
