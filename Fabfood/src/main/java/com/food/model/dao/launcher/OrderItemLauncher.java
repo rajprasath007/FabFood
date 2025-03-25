@@ -1,7 +1,6 @@
 package com.food.model.dao.launcher;
 
 import com.food.model.dao.impl.OrderItemDAOImpl;
-import com.food.model.dao.model.OrderItem;
 
 public class OrderItemLauncher {
 
