@@ -6,4 +6,3 @@ apt-get update && apt-get install -y openjdk-11-jdk
 export CATALINA_HOME=/usr/local/tomcat
 export PATH=$CATALINA_HOME/bin:$PATH
 catalina.sh run
-
