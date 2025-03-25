@@ -1,4 +1,9 @@
 #!/bin/bash
-apt-get update && apt-get install -y openjdk-17-jdk tomcat9
-cp target/*.war /var/lib/tomcat9/webapps/app.war
-systemctl start tomcat9 && tail -f /var/log/tomcat9/catalina.out
+# Install Java (if not available)
+apt-get update && apt-get install -y openjdk-11-jdk
+
+# Start Tomcat and deploy your .war file
+export CATALINA_HOME=/usr/local/tomcat
+export PATH=$CATALINA_HOME/bin:$PATH
+catalina.sh run
+
